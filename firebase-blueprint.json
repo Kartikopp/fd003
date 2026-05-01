@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account settings and course enrollments",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "watchlist": { "type": "array", "items": { "type": "string" } },
+        "notificationsEnabled": { "type": "boolean" },
+        "enrolledCourses": { "type": "array", "items": { "type": "string" } },
+        "purchasedResources": { "type": "array", "items": { "type": "string" } },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "watchlist", "enrolledCourses", "purchasedResources"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Educational content for sale",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "instructor": { "type": "string" },
+        "price": { "type": "number" },
+        "duration": { "type": "string" },
+        "level": { "type": "string", "enum": ["Beginner", "Intermediate", "Advanced"] },
+        "thumbnail": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["id", "title", "price"]
+    },
+    "Resource": {
+      "title": "PDF Resource",
+      "description": "Study materials for students",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "pages": { "type": "number" },
+        "fileSize": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["id", "title", "price"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and settings"
+    },
+    "/courses/{courseId}": {
+      "schema": "Course",
+      "description": "Available marketplace courses"
+    },
+    "/resources/{resourceId}": {
+      "schema": "Resource",
+      "description": "PDF study materials"
+    }
+  }
+}
